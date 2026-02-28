@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplitBills - Account Deletion</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F9FAFB;
+      color: #111827;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: -32px auto 40px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin: 20px 0 10px;
+    }
+
+    .card p, .card li {
+      font-size: 15px;
+      color: #4B5563;
+      line-height: 1.7;
+    }
+
+    .card ul, .card ol {
+      padding-left: 20px;
+      margin: 12px 0;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: steps;
+    }
+
+    .step-list li {
+      counter-increment: steps;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+
+    .step-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .step-list li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: #EEF2FF;
+      color: #4F46E5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .warning-box {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .warning-box p {
+      color: #991B1B;
+      font-size: 14px;
+    }
+
+    .warning-box strong {
+      color: #7F1D1D;
+    }
+
+    .email-section {
+      background: #EEF2FF;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .email-section p {
+      font-size: 14px;
+      color: #4B5563;
+      margin-bottom: 12px;
+    }
+
+    .email-btn {
+      display: inline-block;
+      background: #4F46E5;
+      color: white;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+
+    .email-btn:hover {
+      background: #3730A3;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    .data-table td {
+      padding: 10px 14px;
+      font-size: 14px;
+      border-bottom: 1px solid #F3F4F6;
+    }
+
+    .data-table td:first-child {
+      color: #374151;
+      font-weight: 500;
+      width: 40%;
+    }
+
+    .data-table td:last-child {
+      color: #6B7280;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-red {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .badge-green {
+      background: #D1FAE5;
+      color: #059669;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 20px 40px;
+      font-size: 13px;
+      color: #9CA3AF;
+    }
+
+    .footer a {
+      color: #4F46E5;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 32px 16px; }
+      .header h1 { font-size: 24px; }
+      .card { padding: 24px 20px; }
+      .container { padding: 0 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">💰</div>
+    <h1>SplitBills</h1>
+    <p>Account & Data Deletion</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Delete Your Account</h2>
+      <p>You can delete your SplitBills account and all associated data at any time. Here's how:</p>
+
+      <h3>Option 1: Delete from the App</h3>
+      <ol class="step-list">
+        <li>Open the <strong>SplitBills</strong> app on your device</li>
+        <li>Go to the <strong>Profile</strong> tab (bottom right)</li>
+        <li>Scroll down and tap <strong>"Delete Account"</strong></li>
+        <li>Confirm the deletion in the dialog</li>
+      </ol>
+
+      <h3>Option 2: Request via Email</h3>
+      <p>If you no longer have access to the app, you can request account deletion by emailing us. Please include the phone number associated with your account.</p>
+
+      <div class="email-section">
+        <p>Send a deletion request to:</p>
+        <a href="mailto:splitbillshelp@gmail.com?subject=Account%20Deletion%20Request&body=Hi%2C%0A%0AI%20would%20like%20to%20delete%20my%20SplitBills%20account.%0A%0APhone%20number%20associated%20with%20my%20account%3A%20%0A%0AThank%20you." class="email-btn">splitbillshelp@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>What Data Gets Deleted?</h2>
+      <p>When you delete your account, the following data is permanently removed:</p>
+
+      <table class="data-table">
+        <tr>
+          <td>Profile information</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Phone number</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Email address</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Personal expenses</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Group memberships</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Notification preferences</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+        <tr>
+          <td>Currency settings</td>
+          <td><span class="badge badge-red">Deleted</span></td>
+        </tr>
+      </table>
+
+      <div class="warning-box">
+        <p><strong>⚠ This action is permanent and cannot be undone.</strong> Once your account is deleted, all your data is permanently removed from our servers. You will need to create a new account if you wish to use SplitBills again.</p>
+      </div>
+
+      <h3>Processing Time</h3>
+      <ul>
+        <li><strong>In-app deletion:</strong> Immediate</li>
+        <li><strong>Email requests:</strong> Processed within 3 business days</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2026 SplitBills. All rights reserved.</p>
+    <p style="margin-top: 6px;">
+      <a href="https://play.google.com/store/apps/details?id=com.change.splitbills">Google Play</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:splitbillshelp@gmail.com">Contact Us</a>
+    </p>
+  </div>
+
+</body>
+</html>
